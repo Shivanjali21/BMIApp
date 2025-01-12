@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
            int in = Integer.parseInt(edtHeightIn.getText().toString());
 
            int totalIn = ft * 12 + in;
-           double totalCM = totalIn*2.53;
-           double totalIM = totalCM/100;
+           double totalCM = totalIn * 2.53;
+           double totalIM = totalCM / 100;
            double bmi = wt/(totalIM*totalIM);
            if(bmi > 25) {
              tvResult.setText("You are overweight");
