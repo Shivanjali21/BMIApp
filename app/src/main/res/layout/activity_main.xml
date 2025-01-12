@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:hint="Enter your Weight"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:textSize="16sp"
+        android:layout_margin="6dp"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtHeightFt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:layout_margin="6dp"
+        android:hint="Enter your Height (in Ft)"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtHeightIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="12"
+        android:layout_margin="6dp"
+        android:hint="Enter your Weight (in In)"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"
+        android:textSize="16sp"
+        android:textColor="@color/black"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCalculateBMI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calculate BMI"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:layout_margin="6dp"
+        android:textColor="@color/white"
+        android:background="@color/blue"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle="bold"
+        android:layout_margin="6dp"
+        android:fontFamily="sans-serif"
+        android:includeFontPadding="false"/>
+
+</LinearLayout>
