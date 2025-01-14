@@ -1,10 +1,4 @@
 <resources>
-    <string name="app_name">bmi</string>
-    <string name="enter_your_weight">Enter your Weight</string>
-    <string name="enter_your_height_in_ft">Enter your Height (in Ft)</string>
-    <string name="enter_your_weight_in_in">Enter your Weight (in In)</string>
-    <string name="calculate_bmi">Calculate BMI</string>
-    <string name="ow">You are overweight!</string>
-    <string name="uw">You are underweight!</string>
-    <string name="h">You are healthy!</string>
+    <string name="app_name">tic-tac-toe</string>
+
 </resources>

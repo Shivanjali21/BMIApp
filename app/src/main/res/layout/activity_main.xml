@@ -9,68 +9,81 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtWeight"
+    <GridLayout
+        android:id="@+id/gL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="12"
-        android:hint="@string/enter_your_weight"
-        android:fontFamily="sans-serif"
-        android:includeFontPadding="false"
-        android:textSize="16sp"
-        android:layout_margin="6dp"
-        android:textColor="@color/black"/>
+        android:columnCount="3">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtHeightFt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:layout_margin="6dp"
-        android:hint="@string/enter_your_height_in_ft"
-        android:fontFamily="sans-serif"
-        android:includeFontPadding="false"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        <Button
+            android:id="@+id/btn1"
+            android:onClick="onButtonCheck"/>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtHeightIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="12"
-        android:layout_margin="6dp"
-        android:hint="@string/enter_your_weight_in_in"
-        android:fontFamily="sans-serif"
-        android:includeFontPadding="false"
-        android:textSize="16sp"
-        android:textColor="@color/black"/>
+        <Button
+            android:id="@+id/btn2"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn3"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn4"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn5"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn6"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn7"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn8"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+        <Button
+            android:id="@+id/btn9"
+            android:layout_marginStart="10dp"
+            android:onClick="onButtonCheck"/>
+
+    </GridLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCalculateBMI"
+        android:id="@+id/btnRestart"
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:text="@string/calculate_bmi"
-        android:textSize="16sp"
-        app:cornerRadius="8dp"
-        app:elevation="12dp"
-        android:textStyle="bold"
-        android:layout_margin="6dp"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/blue"
-        android:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:text="Restart Game"
+        android:layout_margin="10dp"
+        app:backgroundTint="@color/color_blue"
         android:fontFamily="sans-serif"
-        android:includeFontPadding="false"/>
+        android:includeFontPadding="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:elevation="10dp"
+        android:onClick="onButtonCheck"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:textStyle="bold"
         android:layout_margin="6dp"
         android:fontFamily="sans-serif"
-        android:includeFontPadding="false"/>
+        android:includeFontPadding="false"
+        android:text=""
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
 </LinearLayout>
