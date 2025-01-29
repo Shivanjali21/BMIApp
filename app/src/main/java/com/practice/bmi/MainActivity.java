@@ -1,141 +1,100 @@
 package com.practice.bmi;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import www.sanju.motiontoast.MotionToast;
-import www.sanju.motiontoast.MotionToastStyle;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnRestart;
-    LinearLayout llMain;
-    int flag = 0;
-    int count = 0;
-    String b1, b2, b3, b4, b5, b6, b7, b8, b9;
+    ListView listView;
+    Spinner spinner;
+    AutoCompleteTextView acTv;
+
+    ArrayList<String> arrName = new ArrayList<>();
+    ArrayList<String> arrIdProof = new ArrayList<>();
+    ArrayList<String> arrLanguages = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init();
-    }
+        listView = findViewById(R.id.listView);
+        spinner = findViewById(R.id.spinner);
+        acTv = findViewById(R.id.aCTv);
 
-    private void init() {
-        btn1 = findViewById(R.id.btn1);
-        btn1.setOnClickListener(this::onButtonCheck);
-        btn2 = findViewById(R.id.btn2);
-        btn2.setOnClickListener(this::onButtonCheck);
-        btn3 = findViewById(R.id.btn3);
-        btn3.setOnClickListener(this::onButtonCheck);
-        btn4 = findViewById(R.id.btn4);
-        btn4.setOnClickListener(this::onButtonCheck);
-        btn5 = findViewById(R.id.btn5);
-        btn5.setOnClickListener(this::onButtonCheck);
-        btn6 = findViewById(R.id.btn6);
-        btn6.setOnClickListener(this::onButtonCheck);
-        btn7 = findViewById(R.id.btn7);
-        btn7.setOnClickListener(this::onButtonCheck);
-        btn8 = findViewById(R.id.btn8);
-        btn8.setOnClickListener(this::onButtonCheck);
-        btn9 = findViewById(R.id.btn9);
-        btn9.setOnClickListener(this::onButtonCheck);
+        /* List View */
+        arrName.add("Rohit");
+        arrName.add("Shubham");
+        arrName.add("Aditya");
+        arrName.add("Virat");
+        arrName.add("Jasprit");
+        arrName.add("Taran");
+        arrName.add("SKY");
+        arrName.add("NKR");
+        arrName.add("Yuvraj");
+        arrName.add("MSD");
+        arrName.add("GG");
+        arrName.add("Rahul Dravid");
+        arrName.add("Md. Siraj");
+        arrName.add("Md. Shami");
+        arrName.add("YJB");
+        arrName.add("Dhruv Jurel");
+        arrName.add("Kapil Dev");
+        arrName.add("Ajit Agarkar");
+        arrName.add("Hardik Pandya");
+        arrName.add("Axar Patel");
+        arrName.add("Ravindra Jadeja");
+        arrName.add("R. Ashwin");
 
-        btnRestart = findViewById(R.id.btnRestart);
-        btnRestart.setOnClickListener(this::onButtonCheck);
-    }
-
-    public void onButtonCheck(View view) {
-        //Check current button hit.
-        Button currentBtn = (Button) view;
-
-        if (currentBtn.getText().toString().isEmpty()) {
-            count++;
-
-            if (flag == 0) {
-                currentBtn.setText("X");
-                flag = 1;
-            } else {
-                currentBtn.setText("O");
-                flag = 0;
+        ArrayAdapter<String> nameAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, arrName);
+        listView.setAdapter(nameAdapter);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            if(position == 0) {
+              Toast.makeText(MainActivity.this, "Clicked First Item", Toast.LENGTH_SHORT).show();
             }
+        });
+        /* End Of View */
 
 
-            if (count > 4) {
+        /* Spinner */
+        arrIdProof.add("Class 10th Marksheets");
+        arrIdProof.add("Class 12th Marksheets");
+        arrIdProof.add("Aadhaar Card");
+        arrIdProof.add("Voter Card");
+        arrIdProof.add("Ration Card");
+        arrIdProof.add("Driving License");
+        arrIdProof.add("Passport");
+        arrIdProof.add("PAN Card");
+        ArrayAdapter<String> idProofAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrIdProof);
+        spinner.setAdapter(idProofAdapter);
+        /* End Of Spinner */
 
-                b1 = btn1.getText().toString();
-                b2 = btn2.getText().toString();
-                b3 = btn3.getText().toString();
-                b4 = btn4.getText().toString();
-                b5 = btn5.getText().toString();
-                b6 = btn6.getText().toString();
-                b7 = btn7.getText().toString();
-                b8 = btn8.getText().toString();
-                b9 = btn9.getText().toString();
 
-
-                //Conditions
-                if (b1.equals(b2) && b2.equals(b3) && !b1.isEmpty()) {
-                    //1
-                    Toast.makeText(this, String.format("Winner is " + b1), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b4.equals(b5) && b5.equals(b6) && !b4.isEmpty()) {
-                    //2
-                    Toast.makeText(this, String.format("Winner is " + b4), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b7.equals(b8) && b8.equals(b9) && !b7.isEmpty()) {
-                    //3
-                    Toast.makeText(this, String.format("Winner is " + b7), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b1.equals(b4) && b4.equals(b7) && !b1.isEmpty()) {
-                    //4
-                    Toast.makeText(this, String.format("Winner is " + b1), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b2.equals(b5) && b5.equals(b8) && !b2.isEmpty()) {
-                    //5
-                    Toast.makeText(this, String.format("Winner is " + b2), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b3.equals(b6) && b6.equals(b9) && !b3.isEmpty()) {
-                    //6
-                    Toast.makeText(this, String.format("Winner is " + b3), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b1.equals(b5) && b5.equals(b9) && !b1.isEmpty()) {
-                    //7
-                    Toast.makeText(this, String.format("Winner is " + b1), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (b3.equals(b5) && b5.equals(b7) && !b3.isEmpty()) {
-                    //8
-                    Toast.makeText(this, String.format("Winner is " + b3), Toast.LENGTH_SHORT).show();
-                    newGame();
-                } else if (count == 9) {
-                    MotionToast.Companion.createToast(this, "", "Game is draw", MotionToastStyle.INFO, MotionToast.GRAVITY_BOTTOM, MotionToast.LONG_DURATION, ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular));
-                    newGame();
-                }
-            }
-        }
-
-        if(view.getId() == R.id.btnRestart){
-          newGame();
-        }
-
+        /* AutoCompleteTextView */
+        arrLanguages.add("ASP.Net");
+        arrLanguages.add("C");
+        arrLanguages.add("C++");
+        arrLanguages.add("C#");
+        arrLanguages.add("Dart");
+        arrLanguages.add("Go");
+        arrLanguages.add("Go Lang");
+        arrLanguages.add("HTML");
+        arrLanguages.add("Java");
+        arrLanguages.add("JavaScript");
+        arrLanguages.add("Kotlin");
+        arrLanguages.add("Python");
+        arrLanguages.add("Php");
+        arrLanguages.add("Swift");
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, arrLanguages);
+        acTv.setAdapter(languageAdapter);
+        acTv.setThreshold(1);
+        /* End Of AutoCompleteTextView */
     }
 
-    private void newGame() {
-        btn1.setText("");
-        btn2.setText("");
-        btn3.setText("");
-        btn4.setText("");
-        btn5.setText("");
-        btn6.setText("");
-        btn7.setText("");
-        btn8.setText("");
-        btn9.setText("");
-        flag = 0;
-        count = 0;
-    }
 }
