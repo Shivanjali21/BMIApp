@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.practice.bmi"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.practice.bmi"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -42,5 +42,5 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.motionToast)
-
+    implementation(libs.android.networking)
 }
