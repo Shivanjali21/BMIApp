@@ -42,5 +42,4 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.motionToast)
-    implementation(libs.android.networking)
 }
