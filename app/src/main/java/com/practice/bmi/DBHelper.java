@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -16,7 +15,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String Key_NAME = "name";
     private static final String Key_Mobile_No = "mobile_no";
-
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -58,6 +56,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         arrContact.add(contactModel);
       }
+      cursor.close();
       return arrContact;
+    }
+
+    public void updateContact(ContactModel contactModel){
+      SQLiteDatabase database = this.getWritableDatabase();
+      ContentValues cv = new ContentValues();
+      cv.put(Key_Mobile_No, contactModel.mobile_no);
+      database.update(TABLE_CONTACT, cv,KEY_ID + " = " + contactModel.id, null);
+    }
+
+    public void deleteContact(int id){
+      SQLiteDatabase database = this.getWritableDatabase();
+      database.delete(TABLE_CONTACT, KEY_ID+ " = ? ", new String[]{String.valueOf(id)});
     }
 }

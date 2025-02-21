@@ -19,6 +19,13 @@ public class MainActivity extends AppCompatActivity {
         dbHelper.addContact("Aman", "0123456789");
         dbHelper.addContact("Jasprit", "0123456789");*/
 
+        ContactModel contactModel = new ContactModel();
+        contactModel.id  = 1;
+        contactModel.mobile_no = "9876543220";
+
+        dbHelper.updateContact(contactModel);
+
+        dbHelper.deleteContact(4);
         ArrayList<ContactModel> contactModels = dbHelper.fetchContact();
         for(int i = 0; i < contactModels.size(); i++) {
           Log.d("MainActivity", "Name: " + contactModels.get(i).name + "Mobile: " + contactModels.get(i).mobile_no);
