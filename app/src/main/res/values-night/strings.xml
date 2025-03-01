@@ -1,8 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">tic-tac-toe</string>
-    <string name="search_here">Search Here..</string>
     <string name="expense_name">Expense Name</string>
     <string name="expense_amount">Expense Amount</string>
     <string name="add_expense">Add Expense</string>
-
 </resources>
