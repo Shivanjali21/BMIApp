@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">tic-tac-toe</string>
-    <string name="open_camera">Open Camera</string>
-    <string name="open_gallery">Open Gallery</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
 
 </resources>
