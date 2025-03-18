@@ -1,18 +1,20 @@
 package com.practice.bmi;
 
-import android.net.Uri;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.MediaController;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.practice.bmi.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     private ActivityMainBinding activityMainBinding;
-    String localPath, onlinePath;
-    MediaController mc;
+    SensorManager sensorManager;
+    Sensor acclerSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +23,24 @@ public class MainActivity extends AppCompatActivity {
         View view = activityMainBinding.getRoot();
         setContentView(view);
 
-        localPath = "android.resource://"+getPackageName()+"/raw/android_video_player";
-        onlinePath = "";
-        Uri pathParse = Uri.parse(localPath);
-        activityMainBinding.videoScreen.setVideoURI(pathParse);
-        activityMainBinding.videoScreen.start();
-        //activityMainBinding.videoScreen.setVideoPath(localPath); //one option
-
-        mc = new MediaController(this);
-        activityMainBinding.videoScreen.setMediaController(mc);
-        mc.setAnchorView(activityMainBinding.videoScreen);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if(sensorManager != null){
+          acclerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+          if(acclerSensor != null){
+            sensorManager.registerListener(this, acclerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+          }
+        }else {
+            Toast.makeText(this, "Sensor is not supported in this device", Toast.LENGTH_SHORT).show();
+        }
     }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+      if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+       activityMainBinding.tvSensorValue.setText(String.format("X: %s, Y: %s, Z: %s", event.values[0], event.values[1], event.values[2]));
+      }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 }
