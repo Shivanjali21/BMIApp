@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private ActivityMainBinding activityMainBinding;
     SensorManager sensorManager;
-    Sensor acclerSensor;
+    Sensor lightSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +24,23 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(view);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if(sensorManager != null){
-          acclerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-          if(acclerSensor != null){
-            sensorManager.registerListener(this, acclerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-          }
-        }else {
-            Toast.makeText(this, "Sensor is not supported in this device", Toast.LENGTH_SHORT).show();
+        if (sensorManager != null) {
+            lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+            if (lightSensor != null) {
+                sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+            } else {
+                Toast.makeText(this, "Light Sensor is not supported for this device.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Sensor is not supported for this device.", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-      if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-       activityMainBinding.tvSensorValue.setText(String.format("X: %s, Y: %s, Z: %s", event.values[0], event.values[1], event.values[2]));
-      }
+        if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+          activityMainBinding.tvSensorValue.setText(String.format("Values: " + event.values[0]));
+        }
     }
 
     @Override
