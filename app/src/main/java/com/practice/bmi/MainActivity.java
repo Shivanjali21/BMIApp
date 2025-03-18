@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private ActivityMainBinding activityMainBinding;
     SensorManager sensorManager;
-    Sensor acclerSensor;
+    Sensor proxySensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(sensorManager != null){
-          acclerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-          if(acclerSensor != null){
-            sensorManager.registerListener(this, acclerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+          proxySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+          if(proxySensor != null){
+            sensorManager.registerListener(this, proxySensor, SensorManager.SENSOR_DELAY_NORMAL);
           }
         }else {
             Toast.makeText(this, "Sensor is not supported in this device", Toast.LENGTH_SHORT).show();
@@ -36,8 +36,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-      if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-       activityMainBinding.tvSensorValue.setText(String.format("X: %s, Y: %s, Z: %s", event.values[0], event.values[1], event.values[2]));
+       if(event.sensor.getType() == Sensor.TYPE_PROXIMITY){
+        activityMainBinding.tvSensorValue.setText(String.format("X: %s ", event.values[0]));
+        if(event.values[0] > 0){
+          Toast.makeText(this, "Object is Far.", Toast.LENGTH_SHORT).show();
+        }else {
+          Toast.makeText(this, "Object is Near.", Toast.LENGTH_SHORT).show();
+        }
       }
     }
 
