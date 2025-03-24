@@ -1,20 +1,14 @@
 package com.practice.bmi;
 
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.practice.bmi.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityMainBinding activityMainBinding;
-    SensorManager sensorManager;
-    Sensor lightSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,26 +17,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         View view = activityMainBinding.getRoot();
         setContentView(view);
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if (sensorManager != null) {
-            lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-            if (lightSensor != null) {
-                sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-            } else {
-                Toast.makeText(this, "Light Sensor is not supported for this device.", Toast.LENGTH_SHORT).show();
-            }
+        activityMainBinding.btnStart.setOnClickListener(this);
+        activityMainBinding.btnStop.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnStart) {
+          startService(new Intent(MainActivity.this, MusicService.class));
         } else {
-            Toast.makeText(this, "Sensor is not supported for this device.", Toast.LENGTH_SHORT).show();
+          stopService(new Intent(MainActivity.this, MusicService.class));
         }
     }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
-          activityMainBinding.tvSensorValue.setText(String.format("Values: " + event.values[0]));
-        }
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 }
