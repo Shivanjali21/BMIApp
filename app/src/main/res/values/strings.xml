@@ -1,6 +1,7 @@
 <resources>
+
     <string name="app_name">tic-tac-toe</string>
-    <string name="start">Start Service</string>
-    <string name="stop">Stop Service</string>
+    <string name="set_alarm">Set Alarm</string>
+    <string name="enter_time">Enter Time</string>
 
 </resources>
