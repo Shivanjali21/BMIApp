@@ -12,9 +12,8 @@ public class AlarmBoardCastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-      mp = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-      mp.setLooping(true);
-      mp.start();
-    }
 
+        mp = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+        mp.start();
+    }
 }
