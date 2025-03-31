@@ -1,7 +1,11 @@
 <resources>
 
     <string name="app_name">tic-tac-toe</string>
-    <string name="set_alarm">Set Alarm</string>
-    <string name="enter_time">Enter Time</string>
+    <string name="et_input_one">Enter value one</string>
+    <string name="et_input_two">Enter value two</string>
+    <string name="btn_add">+</string>
+    <string name="btn_sub">-</string>
+    <string name="btn_mul">*</string>
+    <string name="btn_div">/</string>
 
 </resources>
