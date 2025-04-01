@@ -1,14 +1,23 @@
 package com.practice.bmi
 
-import android.content.Context
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.Manifest.permission.READ_SMS
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import com.practice.bmi.databinding.ActivityMainBinding
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+    companion object {
+      const val REQ_PERMISSION = 1
+    }
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -18,82 +27,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        binding.btnAdd.setOnClickListener(this)
-        binding.btnSub.setOnClickListener(this)
-        binding.btnMul.setOnClickListener(this)
-        binding.btnDiv.setOnClickListener(this)
-    }
-
-    fun hideKeyboardFrom(context: Context, view: View) {
-        val imm = context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, 0)
+        binding.btnRequest.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.btnAdd -> {
-                if (binding.etValueOne.text.toString() != "" && binding.etValueTwo.text.toString() != "") {
-                    val userInputOne = binding.etValueOne.text.toString().toInt()
-                    val userInputTwo = binding.etValueTwo.text.toString().toInt()
-                    val sum = userInputOne + userInputTwo
-                    Toast.makeText(this, "The sum is $sum", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Please fill all the required fields!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                binding.etValueOne.setText("")
-                binding.etValueTwo.setText("")
+            R.id.btnRequest -> {
+               if(checkPermission()){
+                 //Toast.makeText(this, "Permission Already Granted!!", Toast.LENGTH_SHORT).show()
+                 MotionToast.createColorToast(this, "","Permission Already Granted!!", MotionToastStyle.SUCCESS, MotionToast.GRAVITY_BOTTOM, MotionToast.SHORT_DURATION, ResourcesCompat.getFont(this, R.font.atkinson_medium))
+               }else{
+                 ActivityCompat.requestPermissions(this, arrayOf(READ_SMS, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION), REQ_PERMISSION)
+               }
             }
+        }
+    }
 
-            R.id.btnSub -> {
-                if (binding.etValueOne.text.toString() != "" && binding.etValueTwo.text.toString() != "") {
-                    val userInputOne = binding.etValueOne.text.toString().toInt()
-                    val userInputTwo = binding.etValueTwo.text.toString().toInt()
-                    val sub = if (userInputOne > userInputTwo) {
-                        userInputOne - userInputTwo
-                    } else {
-                        userInputTwo - userInputOne
-                    }
-                    Toast.makeText(this, "The difference is $sub", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Please fill all the required fields!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                binding.etValueOne.setText("")
-                binding.etValueTwo.setText("")
-            }
+    private fun checkPermission() : Boolean {
+      val permissions = arrayOf(READ_SMS, ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION)
+      return permissions.all { permission ->
+        ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+      }
+    }
 
-            R.id.btnMul -> {
-                if (binding.etValueOne.text.toString() != "" && binding.etValueTwo.text.toString() != "") {
-                    val userInputOne = binding.etValueOne.text.toString().toInt()
-                    val userInputTwo = binding.etValueTwo.text.toString().toInt()
-                    val mul = userInputOne * userInputTwo
-                    Toast.makeText(this, "The product is $mul", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Please fill all the required fields!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-                binding.etValueOne.setText("")
-                binding.etValueTwo.setText("")
-            }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>,
+                                            grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-            R.id.btnDiv -> {
-                val div : Int
-                if (binding.etValueOne.text.toString() != "" && binding.etValueTwo.text.toString() != "") {
-                    val userInputOne = binding.etValueOne.text.toString().toInt()
-                    val userInputTwo = binding.etValueTwo.text.toString().toInt()
-                    if (userInputTwo == 0) {
-                        Toast.makeText(this, "A number can not de divided by 0 as it produce infinite result.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        div = userInputOne / userInputTwo
-                        Toast.makeText(this, "The sum is $div", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(this, "Please fill all the required fields!", Toast.LENGTH_SHORT).show()
-                }
-                binding.etValueOne.setText("")
-                binding.etValueTwo.setText("")
-            }
+        if(requestCode == REQ_PERMISSION){
+          if(grantResults.isNotEmpty()){
+            val sms = grantResults[0]
+            val fineLoc = grantResults[1]
+            val coarseLoc = grantResults[2]
+
+            val checkSms = sms == PackageManager.PERMISSION_GRANTED
+            val checkFL = fineLoc == PackageManager.PERMISSION_GRANTED
+            val checkCL = coarseLoc == PackageManager.PERMISSION_GRANTED
+              
+             if(checkSms && checkFL && checkCL){
+                 //Toast.makeText(this, "Permissions Granted!!", Toast.LENGTH_SHORT).show()
+                 MotionToast.createColorToast(this, "","Permission Granted!!", MotionToastStyle.SUCCESS, MotionToast.GRAVITY_BOTTOM, MotionToast.SHORT_DURATION, ResourcesCompat.getFont(this, R.font.atkinson_medium))
+             }else {
+                 //Toast.makeText(this, "Permissions Denied!!", Toast.LENGTH_SHORT).show()
+                 MotionToast.createToast(this, "", "Permission Denied!!", MotionToastStyle.WARNING, MotionToast.GRAVITY_BOTTOM, MotionToast.SHORT_DURATION, ResourcesCompat.getFont(this, R.font.atkinson_medium))
+             } 
+          }
         }
     }
 }
