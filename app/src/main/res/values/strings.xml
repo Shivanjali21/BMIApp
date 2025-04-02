@@ -1,6 +1,9 @@
 <resources>
 
     <string name="app_name">tic-tac-toe</string>
-    <string name="btn_request">Request Permission</string>
+    <string name="no_notes">No Notes Found!\n Add to see your notes.</string>
+    <string name="enter_title">Enter Title</string>
+    <string name="enter_desc">Enter Description</string>
+    <string name="btn_add">Add</string>
 
 </resources>
